@@ -42,8 +42,4 @@ public class PlayerCreatorTest {
         Assertions.assertThrows(PlayerOutsideMapError.class, () -> this.service.execute(5, 2));
     }
 
-    @Test
-    public void GivenMapWhenAddNewPlayerOutsideYThenExceptionShouldBeThrow() {
-        Assertions.assertThrows(PlayerOutsideMapError.class, () -> this.service.execute(2, 5));
-    }
 }

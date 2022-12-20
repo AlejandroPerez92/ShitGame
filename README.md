@@ -10,7 +10,6 @@ The key of the list is the position of the player format as *x-y* the **x** fiel
 
 ## To Do
 
-- Implement a service for kill a player.
 - Implement a service for move a player.
 
 # Commands

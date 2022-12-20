@@ -1,6 +1,7 @@
 package org.alex92.entity;
 
 import org.alex92.error.PlayerInPositionError;
+import org.alex92.error.PlayerNotFoudError;
 import org.alex92.error.PlayerOutsideMapError;
 
 import java.util.Collections;
@@ -35,6 +36,19 @@ public class Map {
         this.guardPositionOutsideMap(x, y);
         this.guardPositionOccupied(x, y);
         this.players.put(key, player);
+    }
+
+
+    public void removePlayer(int x, int y) throws PlayerNotFoudError, PlayerOutsideMapError {
+        this.guardPlayerExists(x, y);
+        this.players.remove(this.generateKeyPosition(x, y));
+    }
+
+    private void guardPlayerExists(int x, int y) throws PlayerNotFoudError {
+        Player player = this.players.get(this.generateKeyPosition(x, y));
+        if (null == player) {
+            throw new PlayerNotFoudError(x, y);
+        }
     }
 
     public java.util.Map<String, Player> players() {
