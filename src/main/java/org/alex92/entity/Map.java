@@ -1,7 +1,7 @@
 package org.alex92.entity;
 
 import org.alex92.error.PlayerInPositionError;
-import org.alex92.error.PlayerNotFoudError;
+import org.alex92.error.PlayerNotFoundError;
 import org.alex92.error.PlayerOutsideMapError;
 
 import java.util.Collections;
@@ -39,15 +39,15 @@ public class Map {
     }
 
 
-    public void removePlayer(int x, int y) throws PlayerNotFoudError, PlayerOutsideMapError {
+    public void removePlayer(int x, int y) throws PlayerNotFoundError, PlayerOutsideMapError {
         this.guardPlayerExists(x, y);
         this.players.remove(this.generateKeyPosition(x, y));
     }
 
-    private void guardPlayerExists(int x, int y) throws PlayerNotFoudError {
+    private void guardPlayerExists(int x, int y) throws PlayerNotFoundError {
         Player player = this.players.get(this.generateKeyPosition(x, y));
         if (null == player) {
-            throw new PlayerNotFoudError(x, y);
+            throw new PlayerNotFoundError(x, y);
         }
     }
 
@@ -75,5 +75,18 @@ public class Map {
         if (this.players.containsKey(key)) {
             throw new PlayerInPositionError(x, y);
         }
+    }
+
+    public void movePlayer(int originX, int originY, int destinyX, int destinyY) throws PlayerOutsideMapError, PlayerInPositionError, PlayerNotFoundError {
+        this.guardPositionOutsideMap(destinyX, destinyY);
+        this.guardPositionOccupied(destinyX, destinyY);
+        this.guardPlayerExists(originX, originY);
+
+        String originKey = this.generateKeyPosition(originX, originY);
+        Player player = this.players.get(originKey);
+        this.players.remove(originKey);
+
+        String destinyKey = this.generateKeyPosition(destinyX, destinyY);
+        this.players.put(destinyKey,player);
     }
 }

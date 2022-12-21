@@ -2,9 +2,7 @@ package org.alex92.service;
 
 import org.alex92.entity.Map;
 import org.alex92.entity.Player;
-import org.alex92.error.PlayerInPositionError;
-import org.alex92.error.PlayerNotFoudError;
-import org.alex92.error.PlayerOutsideMapError;
+import org.alex92.error.PlayerNotFoundError;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +29,7 @@ public class PlayerKillerTest {
     @Test
     void GivenEmptyMapWhenKillPlayerThenRiseException() throws Exception {
         this.setService();
-        Assertions.assertThrows(PlayerNotFoudError.class, () -> this.service.execute(1, 1));
+        Assertions.assertThrows(PlayerNotFoundError.class, () -> this.service.execute(1, 1));
     }
 
 }
